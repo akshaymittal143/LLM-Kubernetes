@@ -1,0 +1,973 @@
+# LLM Kubernetes Optimization Repository .gitignore
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# pipenv
+Pipfile.lock
+
+# poetry
+poetry.lock
+
+# pdm
+.pdm.toml
+
+# PEP 582
+__pypackages__/
+
+# Celery stuff
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# pytype static type analyzer
+.pytype/
+
+# Cython debug symbols
+cython_debug/
+
+# Kubernetes
+*.kubeconfig
+.kube/
+kubeconfig
+
+# Docker
+.dockerignore
+Dockerfile.local
+docker-compose.override.yml
+
+# Logs
+logs/
+*.log
+*.log.*
+log/
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# nyc test coverage
+.nyc_output
+
+# Grunt intermediate storage
+.grunt
+
+# Bower dependency directory
+bower_components
+
+# node_modules
+node_modules/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional stylelint cache
+.stylelintcache
+
+# Microbundle cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variable files
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
+
+# parcel-bundler cache
+.cache
+.parcel-cache
+
+# Next.js build output
+.next
+out
+
+# Nuxt.js build / generate output
+.nuxt
+dist
+
+# Gatsby files
+.cache/
+public
+
+# Vuepress build output
+.vuepress/dist
+
+# Serverless directories
+.serverless/
+
+# FuseBox cache
+.fusebox/
+
+# DynamoDB Local files
+.dynamodb/
+
+# TernJS port file
+.tern-port
+
+# Stores VSCode versions used for testing VSCode extensions
+.vscode-test
+
+# yarn v2
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+
+# Local development
+.local/
+local/
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Test results
+test-results/
+results/
+*.results.json
+*.results.xml
+
+# Performance data
+perf/
+*.perf
+*.profile
+
+# Model files (too large for git)
+models/
+*.bin
+*.safetensors
+*.gguf
+*.ggml
+
+# Dataset files
+datasets/
+*.csv
+*.jsonl
+*.parquet
+
+# Large data files
+data/
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+
+# Credentials and secrets
+secrets/
+*.key
+*.pem
+*.crt
+*.p12
+*.pfx
+.env.secret
+secrets.yaml
+secrets.yml
+
+# AWS credentials
+.aws/
+aws-credentials
+
+# Google Cloud credentials
+gcp-credentials.json
+service-account-key.json
+
+# Azure credentials
+azure-credentials.json
+
+# Monitoring data
+monitoring/
+prometheus-data/
+grafana-data/
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Archive files
+*.tar
+*.tar.gz
+*.zip
+*.rar
+*.7z
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Windows
+*.lnk
+
+# Linux
+*~
+
+# macOS
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+Icon
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Kubernetes secrets and configs
+k8s-secrets/
+secrets/
+*.secret.yaml
+*.secret.yml
+
+# Helm charts
+charts/
+*.tgz
+
+# ArgoCD
+.argocd/
+
+# Flux
+.flux/
+
+# Tekton
+.tekton/
+
+# Knative
+.knative/
+
+# Istio
+.istio/
+
+# Service mesh
+mesh/
+
+# Load balancer configs
+lb/
+loadbalancer/
+
+# SSL certificates
+ssl/
+certs/
+*.crt
+*.key
+*.pem
+
+# Database dumps
+*.sql
+*.dump
+*.db
+
+# Cache directories
+.cache/
+cache/
+__pycache__/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# MLflow
+mlruns/
+mlartifacts/
+
+# Weights & Biases
+wandb/
+
+# TensorBoard
+runs/
+events.out.tfevents.*
+
+# Model checkpoints
+checkpoints/
+*.ckpt
+*.pt
+*.pth
+
+# Experiment tracking
+experiments/
+runs/
+logs/
+
+# Performance profiling
+profiles/
+*.prof
+
+# Memory dumps
+*.hprof
+*.dump
+
+# Core dumps
+core.*
+
+# System files
+*.pid
+*.lock
+*.sock
+
+# Application specific
+app/
+src/
+*.pyc
+*.pyo
+*.pyd
+
+# Configuration overrides
+config.local.yaml
+config.local.yml
+config.override.yaml
+config.override.yml
+
+# Local development overrides
+docker-compose.override.yml
+docker-compose.local.yml
+
+# Test artifacts
+test-artifacts/
+test-results/
+coverage/
+
+# Build artifacts
+build/
+dist/
+target/
+
+# Package managers
+package-lock.json
+yarn.lock
+Pipfile.lock
+poetry.lock
+
+# Documentation builds
+docs/_build/
+site/
+
+# Generated files
+generated/
+*.generated.*
+
+# Temporary directories
+tmp/
+temp/
+.tmp/
+.temp/
+
+# Backup directories
+backup/
+backups/
+
+# Archive directories
+archive/
+archives/
+
+# Old versions
+old/
+v1/
+v2/
+
+# Experimental
+experimental/
+experiments/
+trial/
+
+# Personal notes
+notes/
+TODO.md
+NOTES.md
+*.md.bak
+
+# Meeting notes
+meetings/
+*.meeting.md
+
+# Draft files
+draft/
+drafts/
+*.draft.*
+
+# Review files
+review/
+reviews/
+*.review.*
+
+# Feedback
+feedback/
+*.feedback.*
+
+# Suggestions
+suggestions/
+*.suggestion.*
+
+# Comments
+comments/
+*.comment.*
+
+# Annotations
+annotations/
+*.annotation.*
+
+# Markup
+*.markup
+*.markdown.bak
+
+# Documentation drafts
+docs/draft/
+docs/review/
+
+# Research notes
+research/
+*.research.*
+
+# Analysis
+analysis/
+*.analysis.*
+
+# Reports
+reports/
+*.report.*
+
+# Presentations
+presentations/
+*.ppt
+*.pptx
+*.key
+
+# Spreadsheets
+*.xls
+*.xlsx
+*.csv.bak
+
+# Images (if not needed)
+*.png.bak
+*.jpg.bak
+*.jpeg.bak
+*.gif.bak
+*.svg.bak
+
+# Videos
+*.mp4
+*.avi
+*.mov
+*.wmv
+*.flv
+*.webm
+
+# Audio
+*.mp3
+*.wav
+*.flac
+*.aac
+*.ogg
+
+# Compressed files
+*.gz
+*.bz2
+*.xz
+*.lzma
+
+# Executables
+*.exe
+*.dmg
+*.deb
+*.rpm
+*.msi
+
+# Scripts (if not needed)
+*.sh.bak
+*.py.bak
+*.js.bak
+
+# Configuration backups
+*.conf.bak
+*.config.bak
+*.yaml.bak
+*.yml.bak
+*.json.bak
+
+# Local overrides
+local/
+.local/
+override/
+.override/
+
+# Development tools
+.dev/
+dev-tools/
+tools/
+
+# Debug files
+debug/
+*.debug
+debug.log
+
+# Error logs
+error.log
+errors.log
+*.error
+
+# Warning logs
+warning.log
+warnings.log
+*.warning
+
+# Info logs
+info.log
+*.info
+
+# Debug logs
+debug.log
+*.debug
+
+# Trace logs
+trace.log
+*.trace
+
+# Fatal logs
+fatal.log
+*.fatal
+
+# Critical logs
+critical.log
+*.critical
+
+# Emergency logs
+emergency.log
+*.emergency
+
+# Alert logs
+alert.log
+*.alert
+
+# Notice logs
+notice.log
+*.notice
+
+# Verbose logs
+verbose.log
+*.verbose
+
+# All log levels
+*.log.*
+
+# Log rotation
+*.log.1
+*.log.2
+*.log.3
+*.log.4
+*.log.5
+*.log.6
+*.log.7
+*.log.8
+*.log.9
+
+# Compressed logs
+*.log.gz
+*.log.bz2
+*.log.xz
+
+# Archive logs
+*.log.tar
+*.log.tar.gz
+
+# Backup logs
+*.log.bak
+*.log.backup
+
+# Old logs
+*.log.old
+*.log.old.*
+
+# Rotated logs
+*.log.rotated
+*.log.rotated.*
+
+# System logs
+system.log
+syslog
+messages
+kern.log
+auth.log
+daemon.log
+
+# Application logs
+app.log
+application.log
+server.log
+client.log
+
+# Web server logs
+access.log
+error.log
+access_log
+error_log
+
+# Database logs
+db.log
+database.log
+mysql.log
+postgresql.log
+mongodb.log
+
+# Network logs
+network.log
+net.log
+dns.log
+dhcp.log
+
+# Security logs
+security.log
+auth.log
+login.log
+logout.log
+
+# Performance logs
+perf.log
+performance.log
+benchmark.log
+
+# Monitoring logs
+monitor.log
+monitoring.log
+metrics.log
+
+# Health check logs
+health.log
+healthcheck.log
+status.log
+
+# Load balancer logs
+lb.log
+loadbalancer.log
+haproxy.log
+nginx.log
+
+# Proxy logs
+proxy.log
+reverse-proxy.log
+
+# API logs
+api.log
+rest.log
+graphql.log
+
+# Microservice logs
+service.log
+microservice.log
+pod.log
+container.log
+
+# Kubernetes logs
+k8s.log
+kubernetes.log
+kubelet.log
+kube-proxy.log
+
+# Docker logs
+docker.log
+container.log
+cgroup.log
+
+# Orchestration logs
+orchestration.log
+scheduler.log
+dispatcher.log
+
+# Queue logs
+queue.log
+message.log
+event.log
+
+# Cache logs
+cache.log
+redis.log
+memcached.log
+
+# Storage logs
+storage.log
+disk.log
+volume.log
+
+# Backup logs
+backup.log
+restore.log
+snapshot.log
+
+# Sync logs
+sync.log
+replication.log
+mirror.log
+
+# Update logs
+update.log
+upgrade.log
+patch.log
+
+# Install logs
+install.log
+setup.log
+configure.log
+
+# Build logs
+build.log
+compile.log
+link.log
+
+# Test logs
+test.log
+unit.log
+integration.log
+e2e.log
+
+# CI/CD logs
+ci.log
+cd.log
+pipeline.log
+workflow.log
+
+# Deployment logs
+deploy.log
+deployment.log
+rollout.log
+
+# Release logs
+release.log
+version.log
+tag.log
+
+# Git logs
+git.log
+commit.log
+merge.log
+
+# Repository specific
+# Keep only essential files for the paper
+# Exclude large model files, temporary data, and development artifacts
+
+# Model files (exclude large files)
+models/
+*.bin
+*.safetensors
+*.gguf
+*.ggml
+*.onnx
+*.pb
+*.tflite
+*.mlmodel
+
+# Dataset files
+datasets/
+*.csv
+*.jsonl
+*.parquet
+*.arrow
+*.feather
+
+# Large data files
+data/
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+*.joblib
+
+# Credentials (always exclude)
+secrets/
+*.key
+*.pem
+*.crt
+*.p12
+*.pfx
+.env.secret
+secrets.yaml
+secrets.yml
+
+# Local development files
+local/
+.local/
+dev/
+.development/
+
+# Temporary and cache files
+tmp/
+temp/
+.cache/
+cache/
+__pycache__/
+
+# Test and experiment artifacts
+test-results/
+experiments/
+runs/
+logs/
+*.results.json
+*.results.xml
+
+# Performance data
+perf/
+*.perf
+*.profile
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# OS generated files
+.DS_Store
+Thumbs.db
+*.lnk
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Large archives
+*.tar
+*.tar.gz
+*.zip
+*.rar
+*.7z
+
+# Keep only the essential repository structure
+# Exclude everything else that might be generated during development

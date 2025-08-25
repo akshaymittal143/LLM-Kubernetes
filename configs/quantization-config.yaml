@@ -1,0 +1,57 @@
+# Quantization Configuration for LLM Optimization
+# This configuration defines quantization parameters for different optimization levels
+
+# FP8 Quantization (E5M2 format)
+fp8:
+  enabled: true
+  format: "e5m2"
+  group_size: 128
+  zero_point: false
+  scale_method: "max"
+
+# AWQ Quantization
+awq:
+  enabled: false
+  bits: 4
+  group_size: 128
+  zero_point: true
+  scale_method: "max"
+
+# GPTQ Quantization
+gptq:
+  enabled: false
+  bits: 4
+  group_size: 128
+  damp_percent: 0.01
+  desc_act: true
+  static_groups: false
+
+# SqueezeLLM Quantization
+squeezellm:
+  enabled: false
+  bits: 4
+  group_size: 128
+  zero_point: true
+
+# Performance thresholds
+thresholds:
+  accuracy_drop: 0.05  # Maximum acceptable accuracy drop
+  speedup_min: 1.5     # Minimum speedup required
+  memory_reduction_min: 0.3  # Minimum memory reduction required
+
+# Model-specific configurations
+models:
+  "meta-llama/Llama-2-7b-chat-hf":
+    recommended_quantization: "fp8"
+    max_context_length: 4096
+    memory_requirement_gb: 14.2
+    
+  "meta-llama/Llama-2-13b-chat-hf":
+    recommended_quantization: "fp8"
+    max_context_length: 4096
+    memory_requirement_gb: 26.8
+    
+  "meta-llama/Llama-2-70b-chat-hf":
+    recommended_quantization: "awq"
+    max_context_length: 4096
+    memory_requirement_gb: 140.4

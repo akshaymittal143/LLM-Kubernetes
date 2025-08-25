@@ -1,0 +1,54 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: llm-optimized-vs
+spec:
+  hosts:
+  - llm-optimized-service
+  gateways:
+  - llm-gateway
+  http:
+  - route:
+    - destination:
+        host: llm-optimized-service
+        port:
+          number: 8000
+    retries:
+      attempts: 3
+      perTryTimeout: 2s
+    timeout: 30s
+---
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: llm-optimized-dr
+spec:
+  host: llm-optimized-service
+  trafficPolicy:
+    loadBalancer:
+      simple: LEAST_CONN
+    connectionPool:
+      tcp:
+        maxConnections: 100
+        connectTimeout: 30s
+      http:
+        http2MaxRequests: 1000
+        maxRequestsPerConnection: 10
+        maxRetries: 3
+---
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: llm-optimized-auth
+spec:
+  selector:
+    matchLabels:
+      app: llm-optimized
+  rules:
+  - from:
+    - source:
+        principals: ["cluster.local/ns/default/sa/llm-client"]
+    to:
+    - operation:
+        methods: ["POST"]
+        paths: ["/v1/chat/completions"]

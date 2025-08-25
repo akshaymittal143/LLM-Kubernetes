@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: llm-optimized
+  labels:
+    app: llm-optimized
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: llm-optimized
+  template:
+    metadata:
+      labels:
+        app: llm-optimized
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8000"
+    spec:
+      nodeSelector:
+        nvidia.com/gpu: "present"
+      containers:
+      - name: llm-service
+        image: vllm/vllm-openai:latest
+        ports:
+        - containerPort: 8000
+        - containerPort: 8001
+        resources:
+          requests:
+            memory: "32Gi"
+            cpu: "8"
+            nvidia.com/gpu: 1
+          limits:
+            memory: "64Gi"
+            cpu: "16"
+            nvidia.com/gpu: 1
+        env:
+        - name: MODEL_NAME
+          value: "meta-llama/Llama-2-7b-chat-hf"
+        - name: QUANTIZATION
+          value: "fp8"
+        - name: MAX_MODEL_LEN
+          value: "4096"
+        - name: TENSOR_PARALLEL_SIZE
+          value: "1"
+        - name: BLOCK_SIZE
+          value: "16"
+        - name: SWAP_SPACE
+          value: "4"
+        volumeMounts:
+        - name: model-cache
+          mountPath: /models
+        - name: shared-memory
+          mountPath: /dev/shm
+      volumes:
+      - name: model-cache
+        persistentVolumeClaim:
+          claimName: llm-optimized-pvc
+      - name: shared-memory
+        emptyDir:
+          medium: Memory
+          sizeLimit: "8Gi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: llm-optimized-service
+spec:
+  selector:
+    app: llm-optimized
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8000
+  type: ClusterIP

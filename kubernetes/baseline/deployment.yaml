@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: llm-baseline
+  labels:
+    app: llm-baseline
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: llm-baseline
+  template:
+    metadata:
+      labels:
+        app: llm-baseline
+    spec:
+      containers:
+      - name: llm-service
+        image: huggingface/transformers:latest
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            memory: "32Gi"
+            cpu: "8"
+          limits:
+            memory: "64Gi"
+            cpu: "16"
+        env:
+        - name: MODEL_NAME
+          value: "meta-llama/Llama-2-7b-chat-hf"
+        - name: MAX_LENGTH
+          value: "2048"
+        - name: BATCH_SIZE
+          value: "1"
+        volumeMounts:
+        - name: model-storage
+          mountPath: /models
+      volumes:
+      - name: model-storage
+        persistentVolumeClaim:
+          claimName: llm-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: llm-baseline-service
+spec:
+  selector:
+    app: llm-baseline
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
+  type: ClusterIP

@@ -1,0 +1,132 @@
+# Monitoring Configuration for LLM Performance Tracking
+# This configuration defines monitoring and observability settings
+
+# Prometheus Configuration
+prometheus:
+  enabled: true
+  scrape_interval: 15s
+  retention_days: 30
+  storage_size: "10Gi"
+  
+  # Custom metrics
+  custom_metrics:
+    - name: "vllm_requests_total"
+      type: "counter"
+      help: "Total number of requests processed"
+      
+    - name: "vllm_requests_duration_seconds"
+      type: "histogram"
+      help: "Request duration in seconds"
+      buckets: [0.1, 0.5, 1.0, 2.0, 5.0, 10.0]
+      
+    - name: "vllm_gpu_utilization"
+      type: "gauge"
+      help: "GPU utilization percentage"
+      
+    - name: "vllm_memory_usage_bytes"
+      type: "gauge"
+      help: "Memory usage in bytes"
+      
+    - name: "vllm_queue_depth"
+      type: "gauge"
+      help: "Current request queue depth"
+
+# Grafana Configuration
+grafana:
+  enabled: true
+  admin_password: "admin"
+  
+  # Dashboards
+  dashboards:
+    - name: "LLM Performance Overview"
+      description: "Overview of LLM performance metrics"
+      
+    - name: "GPU Utilization"
+      description: "Detailed GPU utilization metrics"
+      
+    - name: "Request Latency"
+      description: "Request latency analysis"
+      
+    - name: "Throughput Analysis"
+      description: "Throughput and request rate analysis"
+
+# Alerting Configuration
+alerts:
+  gpu_utilization:
+    threshold: 90
+    duration: "5m"
+    severity: "warning"
+    
+  memory_usage:
+    threshold: 85
+    duration: "5m"
+    severity: "warning"
+    
+  request_latency:
+    threshold: 5000  # 5 seconds
+    duration: "2m"
+    severity: "critical"
+    
+  error_rate:
+    threshold: 5  # 5%
+    duration: "5m"
+    severity: "critical"
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  format: "json"
+  output: "stdout"
+  
+  # Log aggregation
+  aggregation:
+    enabled: true
+    retention_days: 7
+    
+  # Structured logging fields
+  fields:
+    - "timestamp"
+    - "level"
+    - "service"
+    - "request_id"
+    - "latency_ms"
+    - "gpu_utilization"
+    - "memory_usage"
+
+# Health Check Configuration
+health_checks:
+  endpoint: "/health"
+  interval: 30s
+  timeout: 10s
+  failure_threshold: 3
+  
+  # Health check metrics
+  metrics:
+    - name: "health_check_status"
+      type: "gauge"
+      help: "Health check status (1=healthy, 0=unhealthy)"
+      
+    - name: "health_check_duration_seconds"
+      type: "histogram"
+      help: "Health check duration in seconds"
+
+# Performance Profiling
+profiling:
+  enabled: true
+  endpoint: "/debug/pprof"
+  
+  # CPU profiling
+  cpu:
+    enabled: true
+    duration: 30s
+    frequency: 1000
+    
+  # Memory profiling
+  memory:
+    enabled: true
+    interval: 60s
+    
+  # Goroutine profiling
+  goroutine:
+    enabled: true
+    interval: 30s

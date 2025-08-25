@@ -1,0 +1,51 @@
+# vLLM Configuration for Optimized LLM Deployment
+# This configuration optimizes vLLM for maximum performance
+
+model:
+  name: "meta-llama/Llama-2-7b-chat-hf"
+  trust_remote_code: true
+  download_dir: "/models"
+  load_format: "auto"
+
+quantization:
+  method: "fp8"
+  bits: 8
+  group_size: 128
+
+tensor_parallel:
+  size: 1
+  strategy: "auto"
+
+block_size:
+  size: 16
+  swap_space: 4
+
+gpu_memory_utilization: 0.9
+max_model_len: 4096
+max_num_batched_tokens: 8192
+max_num_seqs: 256
+
+pipeline_parallel:
+  size: 1
+
+scheduler:
+  policy: "fcfs"
+  preemption: false
+
+speculative:
+  decoding: false
+
+# Performance optimizations
+disable_log_stats: false
+disable_log_requests: false
+enforce_eager: false
+max_paddings: 256
+
+# Monitoring
+host: "0.0.0.0"
+port: 8000
+metrics_port: 8001
+
+# Logging
+log_level: "INFO"
+log_file: "/var/log/vllm.log"

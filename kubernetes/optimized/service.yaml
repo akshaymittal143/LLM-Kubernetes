@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: llm-optimized-service
+  labels:
+    app: llm-optimized
+spec:
+  selector:
+    app: llm-optimized
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8000
+    name: http
+  - protocol: TCP
+    port: 8000
+    targetPort: 8000
+    name: api
+  - protocol: TCP
+    port: 8001
+    targetPort: 8001
+    name: metrics
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: llm-optimized-metrics
+  labels:
+    app: llm-optimized
+spec:
+  selector:
+    app: llm-optimized
+  ports:
+  - protocol: TCP
+    port: 9090
+    targetPort: 9090
+    name: prometheus
+  type: ClusterIP
