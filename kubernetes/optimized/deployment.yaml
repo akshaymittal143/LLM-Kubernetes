@@ -17,6 +17,49 @@ spec:
         prometheus.io/scrape: "true"
         prometheus.io/port: "8000"
     spec:
+      initContainers:
+      - name: model-prefetch
+        image: amazon/aws-cli:2.15.0
+        command: ["/bin/sh","-c"]
+        args:
+        - |
+          set -e
+          mkdir -p /models/cache
+          aws s3 sync s3://${S3_BUCKET}/ ${MODEL_CACHE_DIR}/ --no-progress --only-show-errors ${S3_ENDPOINT:+--endpoint-url ${S3_ENDPOINT}}
+        env:
+        - name: AWS_DEFAULT_REGION
+          valueFrom:
+            configMapKeyRef:
+              name: object-storage-config
+              key: s3-region
+        - name: S3_ENDPOINT
+          valueFrom:
+            configMapKeyRef:
+              name: object-storage-config
+              key: s3-endpoint
+        - name: S3_BUCKET
+          valueFrom:
+            configMapKeyRef:
+              name: object-storage-config
+              key: s3-bucket
+        - name: MODEL_CACHE_DIR
+          valueFrom:
+            configMapKeyRef:
+              name: object-storage-config
+              key: cache-dir
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: aws-credentials
+              key: access-key-id
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: aws-credentials
+              key: secret-access-key
+        volumeMounts:
+        - name: model-cache
+          mountPath: /models
       nodeSelector:
         nvidia.com/gpu: "present"
       containers:
@@ -47,6 +90,8 @@ spec:
           value: "16"
         - name: SWAP_SPACE
           value: "4"
+        - name: DOWNLOAD_DIR
+          value: "/models/cache"
         volumeMounts:
         - name: model-cache
           mountPath: /models
@@ -54,8 +99,9 @@ spec:
           mountPath: /dev/shm
       volumes:
       - name: model-cache
-        persistentVolumeClaim:
-          claimName: llm-optimized-pvc
+        hostPath:
+          path: /mnt/nvme/models
+          type: DirectoryOrCreate
       - name: shared-memory
         emptyDir:
           medium: Memory

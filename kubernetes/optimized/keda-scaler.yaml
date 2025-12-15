@@ -21,6 +21,12 @@ spec:
   - type: prometheus
     metadata:
       serverAddress: http://prometheus-service:9090
+      metricName: vllm_queue_depth
+      query: avg(vllm_queue_depth)
+      threshold: "5"
+  - type: prometheus
+    metadata:
+      serverAddress: http://prometheus-service:9090
       metricName: gpu_utilization
       query: avg(rate(nvidia_gpu_utilization[2m]))
       threshold: "80"

@@ -1,6 +1,6 @@
 # LLM Kubernetes Optimization Artifacts
 
-This repository contains the experimental artifacts and code used in the paper "Performance Optimization of LLM-Based Agentic Workloads in Kubernetes Environments: Bottlenecks, Root Causes, and Solutions" submitted to ICCA 2024.
+This repository contains the experimental artifacts and code used in the paper "Performance Optimization of LLM-Based Agentic Workloads in Kubernetes Environments: Bottlenecks, Root Causes, and Solutions" (ICCA 2025).
 
 ## Repository Structure
 
@@ -29,8 +29,6 @@ This repository contains the experimental artifacts and code used in the paper "
 │   │   ├── optimized-test.py
 │   │   └── metrics-collector.py
 │   ├── benchmarking/
-│   │   ├── gpu-benchmark.py
-│   │   ├── storage-benchmark.py
 │   │   └── latency-throughput.py
 │   └── deployment/
 │       ├── deploy-baseline.sh
@@ -40,10 +38,7 @@ This repository contains the experimental artifacts and code used in the paper "
 │   ├── vllm-config.yaml
 │   ├── quantization-config.yaml
 │   └── monitoring-config.yaml
-└── results/
-    ├── baseline-metrics.json
-    ├── optimized-metrics.json
-    └── ablation-study-results.json
+└── (create your own results directory when running experiments)
 ```
 
 ## Quick Start
@@ -78,15 +73,6 @@ python scripts/load-testing/optimized-test.py
 python scripts/load-testing/metrics-collector.py --config optimized
 ```
 
-### Running Ablation Study
-```bash
-# Run complete ablation study
-python scripts/benchmarking/run-ablation-study.py
-
-# Generate performance curves
-python scripts/benchmarking/latency-throughput.py
-```
-
 ## Key Artifacts
 
 ### Baseline Configuration
@@ -95,11 +81,10 @@ python scripts/benchmarking/latency-throughput.py
 - Basic resource allocation patterns
 
 ### Optimized Configuration
-- vLLM with PagedAttention optimization
-- FP8 quantization enabled
-- Object storage bypass for model loading
-- KEDA autoscaling with custom metrics
-- Service mesh for communication optimization
+- vLLM with PagedAttention and FP8 quantization
+- Object storage bypass with init-container prefetch to NVMe cache
+- KEDA autoscaling on GPU utilization and request rate metrics
+- Service mesh for pooled connections and mTLS
 
 ### Load Testing Scripts
 - Synthetic conversation patterns
@@ -126,12 +111,12 @@ python scripts/benchmarking/latency-throughput.py
 If you use these artifacts in your research, please cite:
 
 ```bibtex
-@inproceedings{mittal2024llm,
+@inproceedings{mittal2025llm,
   title={Performance Optimization of LLM-Based Agentic Workloads in Kubernetes Environments: Bottlenecks, Root Causes, and Solutions},
   author={Mittal, Akshay and Tadi, Goutam},
   booktitle={Proceedings of the International Conference on Computer Applications},
-  year={2024},
-  note={Submitted}
+  year={2025},
+  note={Accepted}
 }
 ```
 
